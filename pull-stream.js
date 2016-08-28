@@ -1,49 +1,38 @@
 const pull = require('pull-stream');
+const context = require('audio-context');
+const util = require('audio-buffer-utils');
 
-//pull-steam
+let frameSize = 1024;
 
-//a stream of random numbers.
-function source (n) {
-	return function (end, cb) {
-		if(end) return cb(end)
-
-		//only read n times, then stop.
-		if(0 > --n) return cb(true)
-
-		cb(null, Math.random())
-	}
+function sine () {
+  return pull.infinite(function () {
+    return util.noise(util.create(frameSize))
+  })
 }
 
-//volume changer
-function through (read, map) {
-	//return a readable function!
-	return function (end, cb) {
-		read(end, function (end, data) {
-			cb(end, data != null ? map(data) : null)
-		});
-	}
+function volume () {
+  return pull.map(function (data) {
+    util.fill(data, v => v * .01);
+    return data
+  })
 }
 
-//read source and log it.
-function sink () {
-	return function (read) {
-		read(null, function next(end, data) {
-			if(end === true) return
-			if(end) throw end
-
-			console.log(data)
-			read(null, next)
-		});
-	}
+//create speaker routine
+function speaker () {
+  return function (read) {
+    var bufferNode = context.createBufferSource()
+    bufferNode.loop = true;
+    bufferNode.buffer = util.create(2, frameSize)
+    var node = context.createScriptProcessor(frameSize)
+    node.addEventListener('audioprocess', function (e) {
+      read(null, function (err, data) {
+        util.copy(data, e.outputBuffer)
+      })
+    })
+    bufferNode.connect(node)
+    node.connect(context.destination)
+    bufferNode.start()
+  }
 }
 
-
-// pull(source(), through(), sink());
-
-// pull(
-//   pull.values([1, 2, 3]),
-//   pull.asyncMap((v) => v),
-//   pull.collect(function (err, array) {
-//     console.log(array)
-//   })
-// )
+pull(sine(), volume(), speaker())

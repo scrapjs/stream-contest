@@ -15,15 +15,12 @@ bufferNode.buffer = util.create(2, frameSize);
 let buffer = bufferNode.buffer;
 let node = context.createScriptProcessor(frameSize);
 node.addEventListener('audioprocess', function (e) {
-	if (readyData) {
-		util.copy(readyData, e.outputBuffer);
-		let cb = release;
-		readyData = release = null;
-		cb();
-	}
-	else {
-		util.copy(e.inputBuffer, e.outputBuffer);
-	}
+	/*
+	Here we release writable’s callback, which instantly "pulls" the whole stream chain synchronously.
+	 */
+	release();
+
+	util.copy(readyData || e.inputBuffer, e.outputBuffer);
 });
 bufferNode.connect(node);
 node.connect(context.destination);
