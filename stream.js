@@ -2,7 +2,7 @@ const context = require('audio-context');
 const util = require('audio-buffer-utils');
 const now = require('right-now');
 
-
+let duration = 5000;
 let frameSize = 1024;
 
 //state holders for speaker - a scheduled data and release callback.
@@ -73,7 +73,7 @@ setTimeout(() => {
 	release = null;
 	node.disconnect();
 	speaker.end();
-}, 1000);
+}, duration);
 
 
 sine.pipe(volume).pipe(speaker);
