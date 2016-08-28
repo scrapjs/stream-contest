@@ -1,0 +1,16 @@
+{
+  "name": "stream-contest",
+  "version": "1.0.0",
+  "description": "Compare streams vs pull-streams vs function chain.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "audio-buffer-utils": "^3.1.2",
+    "audio-context": "^0.1.0",
+    "pull-stream": "^3.4.3"
+  }
+}
