@@ -1,6 +1,8 @@
 const pull = require('pull-stream');
 const context = require('audio-context');
 const util = require('audio-buffer-utils');
+const now = require('right-now');
+
 
 let frameSize = 1024;
 
@@ -34,5 +36,7 @@ function speaker () {
     bufferNode.start()
   }
 }
+
+
 
 pull(sine(), volume(), speaker())

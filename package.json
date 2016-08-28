@@ -11,6 +11,7 @@
   "dependencies": {
     "audio-buffer-utils": "^3.1.2",
     "audio-context": "^0.1.0",
-    "pull-stream": "^3.4.3"
+    "pull-stream": "^3.4.3",
+    "right-now": "^1.0.0"
   }
 }
