@@ -47,7 +47,7 @@ function speaker () {
 
 
     setTimeout(() => {
-      console.log(`Average time per frame: ${sum/count}ms`);
+  console.log(`Pull stream: ${sum}ms for ${count} frames, average ${sum/count}ms per frame`);
 
       node.disconnect();
       read(true, () => {});

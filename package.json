@@ -4,7 +4,7 @@
   "description": "Compare streams vs pull-streams vs function chain.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "budo index"
   },
   "author": "",
   "license": "ISC",

@@ -70,7 +70,7 @@ let speaker = Writable({
 
 
 setTimeout(() => {
-	console.log(`Average time per frame: ${sum/count}ms`);
+	console.log(`Stream: ${sum}ms for ${count} frames, average ${sum/count}ms per frame`);
 
 	release = null;
 	node.disconnect();
