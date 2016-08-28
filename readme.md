@@ -6,4 +6,4 @@ Setup is source + mapper + destination, pressure is controlled by realtime outpu
 
 * streams ~1.1ms per frame, or 230ms for 5s of audio
 * pull-stream ~.8ms per frame, or 187ms for 5s of audio
-* function ~5ms per frame, or 100ms for 5s of audio
+* function ~.5ms per frame, or 100ms for 5s of audio
