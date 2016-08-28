@@ -1,69 +1,38 @@
+const pull = require('pull-stream');
 const context = require('audio-context');
 const util = require('audio-buffer-utils');
 
+let frameSize = 1024;
 
-function values (ary) {
-  var i = 0
-  return function read(abort, cb) {
-    if(i===ary.length || abort) return cb(true)
-    cb(null, ary[i++])
-  }
-}
-
-
-function sink (read) {
-  read(null, function next (err, data) {
-    if(err) return console.log(err)
-    console.log(data)
-    //recursively call read again!
-    read(null, next)
+function sine () {
+  return pull.infinite(function () {
+    return util.noise(util.create(frameSize))
   })
 }
 
+function volume () {
+  return pull.map(function (data) {
+    util.fill(data, v => v * .01);
+    return data
+  })
+}
 
-function map (mapper) {
-  //a sink function: accept a source
+//create speaker routine
+function speaker () {
   return function (read) {
-    //but return another source!
-    return function (abort, cb) {
-      read(abort, function (err, data) {
-        //if the stream has ended, pass that on.
-        if(err) return cb(err)
-        //apply a mapping to that data
-        cb(null, mapper(data))
+    var bufferNode = context.createBufferSource()
+    bufferNode.loop = true;
+    bufferNode.buffer = util.create(2, frameSize)
+    var node = context.createScriptProcessor(frameSize)
+    node.addEventListener('audioprocess', function (e) {
+      read(null, function (err, data) {
+        util.copy(data, e.outputBuffer)
       })
-    }
+    })
+    bufferNode.connect(node)
+    node.connect(context.destination)
+    bufferNode.start()
   }
 }
 
-var source = values([1,2,3])
-var mapper = map(function (e) { return e*e })
-
-
-function pull () {
-  var args = [].slice.call(arguments)
-  var s = args.shift()
-  while(args.length) s = args.shift()(s)
-  return s
-}
-
-function infinite () {
-  var i = 0
-  return function (abort, cb) {
-    if(abort) return cb(abort)
-    cb(null, i++)
-  }
-}
-
-function take (n) {
-  return function (read) {
-    return function (abort, cb) {
-      //after n reads, tell the source to abort!
-      if(!n--) return read(true, cb)
-      read(null, cb)
-    }
-  }
-}
-
-
-pull(infinite(), mapper, take(101), sink)
+pull(sine(), volume(), speaker())
