@@ -1,3 +1,5 @@
+'use strict';
+
 const context = require('audio-context');
 const util = require('audio-buffer-utils');
 const now = require('right-now');

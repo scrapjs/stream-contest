@@ -1,3 +1,5 @@
+'use strict';
+
 const pull = require('pull-stream');
 const context = require('audio-context');
 const util = require('audio-buffer-utils');
@@ -47,7 +49,6 @@ function speaker () {
     setTimeout(() => {
       console.log(`Average time per frame: ${sum/count}ms`);
 
-      release = null;
       node.disconnect();
       read(true, () => {});
     }, duration);
