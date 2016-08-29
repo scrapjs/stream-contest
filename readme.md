@@ -1,4 +1,4 @@
-Compare streams vs pull-streams vs function chain.
+Compare latencies caused by pull-streams vs streams vs audio-through vs etc.
 
 Setup is source + mapper + destination, pressure is controlled by realtime output, we measure time it takes from getting signal of hunger till processing is done, average per audio frame of 1024 samples (23.2ms of audio).
 
@@ -16,14 +16,14 @@ Setup is source + mapper + destination, pressure is controlled by realtime outpu
 | Type | Latency |
 |---|---|
 | Minimal noticeable latency of a person hearing his voice | 15ms |
-| Minimal noticeable latency of a person not hearing his voice | 20-30ms |
+| Minimal noticeable latency of a person not hearing his voice | 20..30ms |
 | Comfortable communication latency | < 200ms |
-| Radio Broadcast | 10ms is the best, 100+ms is real |
+| Radio Broadcast | 10ms is the best, > 100ms is real |
 | Telephone calls | 100-200ms |
-| IP calls | 20-150ms |
-| Internet radio | 200ms+ |
+| IP calls | 20..150ms |
+| Internet radio | > 200ms |
 | Live performance | 3ms per 1m of air |
-| DSP filters | .5ms - 15ms |
+| DSP filters | 0.5ms..15ms |
 | ASIO drivers | 8ms |
 
-<span id="reference">¹</span> [Reference](https://en.wikipedia.org/wiki/Latency_(audio)))
+<span id="reference">¹</span> [Reference](https://en.wikipedia.org/wiki/Latency_(audio))
