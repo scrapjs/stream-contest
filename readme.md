@@ -10,6 +10,7 @@ Setup is source + mapper + destination, pressure is controlled by realtime outpu
 | [pull-stream](https://github.com/pull-stream/pull-stream) | .7ms | 0.8% |
 | [streams](https://nodejs.org/api/stream.html) | .85ms | 1.5% |
 | [audio-through](https://github.com/audiojs/audio-through) | 1ms | 2.1% |
+| TODO: GPU throughput | | |
 
 ### Latencies [¹](#reference)
 
