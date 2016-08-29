@@ -4,12 +4,14 @@ Setup is source + mapper + destination, pressure is controlled by realtime outpu
 
 ### Results
 
-* function ~.5ms per frame, 0% overhead
-* pull-stream ~.7ms per frame, ~0.8% overhead
-* streams ~.85ms per frame, ~1.5% overhead
-* audio-through ~1ms per frame, ~2.1% overhead
+| Handler | Latrecy per 1024 sample frame (23.2ms) | Overhead |
+|---|---|---|
+| Function | .5ms | 0% |
+| [pull-stream](https://github.com/pull-stream/pull-stream) | .7ms | 0.8% |
+| [streams](https://nodejs.org/api/stream.html) | .85ms | 1.5% |
+| [audio-through](https://github.com/audiojs/audio-through) | 1ms | 2.1% |
 
-### [Known latencies](https://en.wikipedia.org/wiki/Latency_(audio))
+### Latencies ([reference](https://en.wikipedia.org/wiki/Latency_(audio)))
 
 | Type | Latency |
 |---|---|
