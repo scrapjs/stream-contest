@@ -1,6 +1,6 @@
 Compare latencies caused by pull-streams vs streams vs audio-through vs etc.
 
-Setup is source + mapper + destination, pressure is controlled by realtime output, we measure time it takes from getting signal of hunger till processing is done, average per audio frame of 1024 samples (23.2ms of audio).
+Setup is noise generator + gain + speaker destination, pressure is controlled by realtime output, we measure time it takes from getting signal of hunger till processing is done, average per audio frame of 1024 samples (23.2ms of audio).
 
 ### Results
 
@@ -26,5 +26,6 @@ Setup is source + mapper + destination, pressure is controlled by realtime outpu
 | Live performance | 3ms per 1m of air |
 | DSP filters | 0.5ms..15ms |
 | ASIO drivers | 8ms |
+| [FFT transform](https://github.com/scijs/fourier-transform/blob/master/benchmark.md) | 0.1ms |
 
 <span id="reference">¹</span> [Reference](https://en.wikipedia.org/wiki/Latency_(audio))

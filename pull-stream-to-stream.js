@@ -11,18 +11,41 @@ let duration = 5000;
 
 let frameSize = 1024;
 
-function sine () {
-  return pull.infinite(function () {
-    return util.noise(util.create(frameSize))
-  })
-}
+// function sine () {
+//   return pull.infinite(function () {
+//     return util.noise(util.create(frameSize))
+//   })
+// }
 
-function volume () {
-  return pull.map(function (data) {
-    util.fill(data, v => v * .01);
-    return data
-  })
-}
+// function volume () {
+//   return pull.map(function (data) {
+//     util.fill(data, v => v * .01);
+//     return data
+//   })
+// }
+
+
+//Streams
+const Readable = require('stream').Readable;
+const Transform = require('stream').Transform;
+
+let sine = Readable({
+  highWaterMark: 0,
+  objectMode: true,
+  read: function (size) {
+    this.push(util.noise(util.create(frameSize)));
+  }
+});
+
+let volume = Transform({
+  highWaterMark: 0,
+  objectMode: true,
+  transform: (chunk, enc, cb) => {
+    util.fill(chunk, v => v * .01);
+    cb(null, chunk);
+  }
+});
+
 
 //create speaker routine
 function speaker () {
@@ -57,4 +80,5 @@ function speaker () {
 }
 
 // pull(sine(), volume(), speaker())
-toStream.source(sine).pipe(toStream(volume)).pipe(toStream(speaker));
+sine.pipe(volume).pipe(toStream.sink(speaker));
+// toStream.source(sine).pipe(toStream(volume)).pipe(toStream(speaker));
