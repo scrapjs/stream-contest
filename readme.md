@@ -18,8 +18,8 @@ Setup is source + mapper + destination, pressure is controlled by realtime outpu
 | Minimal noticeable latency of a person hearing his voice | 15ms |
 | Minimal noticeable latency of a person not hearing his voice | 20..30ms |
 | Comfortable communication latency | < 200ms |
-| Radio Broadcast | 10ms is the best, > 100ms is real |
-| Telephone calls | 100-200ms |
+| Radio Broadcast | 10ms minimum, > 100ms real |
+| Telephone calls | 100..200ms |
 | IP calls | 20..150ms |
 | Internet radio | > 200ms |
 | Live performance | 3ms per 1m of air |
