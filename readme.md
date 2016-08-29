@@ -11,7 +11,7 @@ Setup is source + mapper + destination, pressure is controlled by realtime outpu
 | [streams](https://nodejs.org/api/stream.html) | .85ms | 1.5% |
 | [audio-through](https://github.com/audiojs/audio-through) | 1ms | 2.1% |
 
-### Latencies ([reference](https://en.wikipedia.org/wiki/Latency_(audio)))
+### Latencies [¹](#reference)
 
 | Type | Latency |
 |---|---|
@@ -25,3 +25,5 @@ Setup is source + mapper + destination, pressure is controlled by realtime outpu
 | Live performance | 3ms per 1m of air |
 | DSP filters | .5ms - 15ms |
 | ASIO drivers | 8ms |
+
+<span id="reference">¹</span> [Reference](https://en.wikipedia.org/wiki/Latency_(audio)))
